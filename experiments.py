@@ -36,6 +36,7 @@ def main():
 
         print(f"n={n:5d} | bubble={bt:.5f} c | selection={st:.5f} c | insertion={it:.5f} c")
 
+    # График
     plt.figure(figsize=(10, 6))
     plt.plot(sizes, bubble_times, marker="o", label="Пузырьком")
     plt.plot(sizes, selection_times, marker="s", label="Выбором")
@@ -48,6 +49,16 @@ def main():
     plt.savefig("sorting_comparison.png", dpi=150)
     plt.show()
 
+    # Markdown-таблица в файл (UTF-8)
+    lines = ["| n | Пузырьком, с | Выбором, с | Вставками, с |",
+             "|---|---|---|---|"]
+    for n, bt, st, it in zip(sizes, bubble_times, selection_times, insertion_times):
+        lines.append(f"| {n} | {bt:.5f} | {st:.5f} | {it:.5f} |")
+
+    with open("results.md", "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
+    print("\nТаблица сохранена в results.md")
 
 if __name__ == "__main__":
     main()
